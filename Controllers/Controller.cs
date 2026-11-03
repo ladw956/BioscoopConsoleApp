@@ -1,50 +1,31 @@
-using System;
-using System.Text;
-using CSConsoleProject.Models;
-
-namespace CSConsoleProject.Controllers;
+namespace BioscoopApplicatie.Controllers;
 
 public class Controller
 {
-    public void TypeWriterEffect(string? message, int time, TypeWriterMode mode = TypeWriterMode.NewLine)
+    public void TypeWriterEffect(string message, int delayMs = 10)
     {
-        if (message == null)
+        foreach (char character in message)
         {
-            Console.WriteLine("No message provided!");
-            return;
+            Console.Write(character);
+            Thread.Sleep(delayMs);
         }
 
-        switch (mode)
-        {
-            case TypeWriterMode.OverwriteLine:
-                int currentLineCursor = Console.CursorTop;
-                Console.SetCursorPosition(0, currentLineCursor);
-                Console.Write(new string(' ', Console.WindowWidth - 1));
-                Console.SetCursorPosition(0, currentLineCursor);
-            break;
-            case TypeWriterMode.NewLine:
-                Console.WriteLine();
-            break;
-            case TypeWriterMode.Append:
-                // keep the current cursor position
-            break;
-        }
-
-        foreach(char c in message)
-        {
-            Console.Write(c);
-            Thread.Sleep(time);
-        }
+        Console.WriteLine();
     }
 
-    public static void Error(StringBuilder message, params LogCategory[] category)
+    public int ReadNumber(string prompt, int minimum, int maximum)
     {
-        message = new StringBuilder
+        while (true)
         {
-            
-        };
+            Console.Write(prompt);
+            string? input = Console.ReadLine();
 
-        Console.WriteLine(message.ToString(), category);
-        // log error message with a specific error color and logcategory.
+            if (int.TryParse(input, out int value) && value >= minimum && value <= maximum)
+            {
+                return value;
+            }
+
+            Console.WriteLine($"Choose a number between {minimum} and {maximum}.");
+        }
     }
 }
