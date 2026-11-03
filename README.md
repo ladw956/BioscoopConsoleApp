@@ -6,9 +6,11 @@ This remains a separate .NET 8 console application. Laravel owns the GameVault u
 
 1. The C# application asks for an existing GameVault e-mail and password.
 2. `POST /api/cinema/auth` verifies the password against Laravel's hashed account password.
-3. Invalid credentials stay on the login screen; the cinema menu is never shown.
+3. Invalid credentials stay on the login screen;
 4. After login the app stays in a menu loop until the user logs out or exits.
-5. The movie collection has `0 = back` so choosing a movie is no longer a one-shot program flow.
+5. The movie collection has `0 = back` so choosing a movie is no longer a one-shot program flow, (the program now resides within a loop).
+
+[Simple security :]
 6. Saving a selection sends the same credentials again, so an API-key holder cannot select a movie merely by typing another user's e-mail.
 7. The password is kept only in process memory during the current console session and is never written to `appsettings.json` or another file.
 
@@ -25,5 +27,3 @@ This remains a separate .NET 8 console application. Laravel owns the GameVault u
 6. Log in with the GameVault e-mail and password.
 
 The movie collection itself is managed only from Laravel Admin > Cinema collection and does not use an external movie API.
-
-For this local school demo HTTP is acceptable. A real remote deployment should use HTTPS and token-based authentication rather than repeatedly sending a password.
